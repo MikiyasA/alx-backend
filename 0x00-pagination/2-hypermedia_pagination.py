@@ -50,7 +50,21 @@ class Server:
 
         p, s = index_range(page, page_size)
         pg = []
-        if p >= len(self.dataset()):
+        if  p >= len(self.dataset()):
             return pg
         pg = self.dataset()
         return pg[p:s]
+
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """ returns a dictionary containing the following key-value pairs """
+        dic = {}
+        data = self.get_page(page, page_size)
+        total_pages = math.floor(len(self.dataset()) / page_size)
+        dic["page_size"] = len(self.get_page(page, page_size))
+        dic['pages'] = page
+        dic['data'] = data
+        dic['next_page'] = page + 1 if page + 1 < total_pages else None
+        dic['prev_page'] = page - 1 if page > 1 else None
+        dic['total_pages'] = total_pages
+
+        return dic
