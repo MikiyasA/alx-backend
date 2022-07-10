@@ -50,7 +50,7 @@ class Server:
 
         p, s = index_range(page, page_size)
         pg = []
-        if  p >= len(self.dataset()):
+        if p >= len(self.dataset()):
             return pg
         pg = self.dataset()
         return pg[p:s]
