@@ -11,7 +11,7 @@ class BasicCache(BaseCaching):
 
     def put(self, key, item):
         """ Put catch data to BaseCaching class """
-        if key not None or itme not None:
+        if key or item:
             self.cache_data[key] = item
 
     def get(self, key):

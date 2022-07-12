@@ -17,7 +17,7 @@ class FIFOCache(BaseCaching):
 
     def put(self, key, item):
         """ Put catch data to BaseCaching class """
-        if key not None or itme not None:
+        if key or item:
             self.cache_data[key] = item
         data = self.cache_data
         if len(data) > BaseCaching.MAX_ITEMS:
