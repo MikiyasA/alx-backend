@@ -1,33 +1,28 @@
 #!/usr/bin/python3
 """
-module for FIFOCacing
+module for LIFOCache
 """
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
-    """ class FIFOCache that inherits from BaseCaching and
+class LIFOCache (BaseCaching):
+    """ class LIFOCache that inherits from BaseCaching and
     is a caching system """
 
     def __init__(self):
         """ Initiliaze
         """
         super().__init__()
-        self.cache_data = {}
+        self.last_key = ''
 
     def put(self, key, item):
         """ Put catch data to BaseCaching class """
-        if key or item:
+        if key and item:
             self.cache_data[key] = item
-        data = self.cache_data
-        if len(data) > BaseCaching.MAX_ITEMS:
-            e = len(data) - BaseCaching.MAX_ITEMS  # extra items
-            exelm = sorted(data)[:e]  # extra element key list
-            sexelm = ', '.join(exelm)  # str format of extra element
-            print("DISCARD: {}".format(sexelm))
-            # to delet extra elements
-            for elm in exelm:
-                del data[elm]
+            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+                print("DISCARD: {}".format(self.last_key))
+                self.cache_data.pop(self.last_key)
+            self.last_key = key
 
     def get(self, key):
         """ Get catch data from BaseCaching class """
